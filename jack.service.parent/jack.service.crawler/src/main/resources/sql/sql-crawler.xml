@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:gildata="http://www.gildata.com/schema/gildata"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.gildata.com/schema/gildata
+        http://www.gildata.com/schema/gildata.xsd">
+	<gildata:sqlconfig id="sql_crawler">
+		<gildata:sqldf sqlname="register" desc="根据密码获取用户">
+			<gildata:sql>
+				<![CDATA[INSERT INTO userinfo ( ID, NAME, PASSWORD, PHONE, MAIL, UPDATETIME ) VALUES( :ID, :NAME, :PASSWORD, :PHONE, :MAIL, NOW( ) )]]>
+			</gildata:sql>
+		</gildata:sqldf>
+		<gildata:sqldf sqlname="getPageInfoById" desc="获取页面配置信息">
+			<gildata:sql>
+				<![CDATA[SELECT ID, NAME, PASSWORD, PHONE, MAIL FROM userinfo WHERE NAME=? LIMIT 1]]>
+			</gildata:sql>
+		</gildata:sqldf>
+	</gildata:sqlconfig>
+</beans>

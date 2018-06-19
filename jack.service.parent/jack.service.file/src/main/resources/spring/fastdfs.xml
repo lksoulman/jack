@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:gildata="http://www.gildata.com/schema/gildata"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-2.5.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-2.5.xsd 
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+        http://www.gildata.com/schema/gildata
+        http://www.gildata.com/schema/gildata.xsd">
+        
+    <bean id="pooledConnectionFactory" class="com.luhuiguo.fastdfs.conn.PooledConnectionFactory">
+    	<property name="soTimeout" value="5000"/>
+    	<property name="connectTimeout" value="5000"/>
+    </bean>
+    
+	<bean id="connectionPoolConfig" class="com.luhuiguo.fastdfs.conn.ConnectionPoolConfig">
+		<property name="maxTotal" value="150" />
+	</bean>
+	
+	<bean id="fdfsPool" class="com.luhuiguo.fastdfs.conn.FdfsConnectionPool">
+		<constructor-arg ref="pooledConnectionFactory"/>
+		<constructor-arg ref="connectionPoolConfig"/>
+	</bean>
+	<bean id="fdfsList" class="java.util.ArrayList">
+		<constructor-arg>
+			<value>${tracker_server}</value>
+		</constructor-arg>
+	</bean>
+	<bean id="tcm" class="com.luhuiguo.fastdfs.conn.TrackerConnectionManager">
+		<constructor-arg ref="fdfsPool" />
+		<constructor-arg ref="fdfsList" />
+	</bean>
+	<bean id="tarckerClient" class="com.luhuiguo.fastdfs.service.DefaultTrackerClient">
+		<constructor-arg ref="tcm" />
+	</bean>
+	<bean id="cm" class="com.luhuiguo.fastdfs.conn.ConnectionManager">
+		<constructor-arg ref="fdfsPool" />
+	</bean>
+	<bean id="fastFileStorageClient"
+		class="com.luhuiguo.fastdfs.service.DefaultFastFileStorageClient">
+		<constructor-arg ref="tarckerClient" />
+		<constructor-arg ref="cm" />
+	</bean>
+</beans>

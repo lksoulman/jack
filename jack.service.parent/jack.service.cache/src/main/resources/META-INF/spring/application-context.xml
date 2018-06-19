@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="
+     http://www.springframework.org/schema/beans 
+     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/tx 
+     http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     http://www.springframework.org/schema/aop 
+     http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+     http://www.springframework.org/schema/context  
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://code.alibabatech.com/schema/dubbo
+     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<bean
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:profiles/application.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="classpath:spring/redisconfig.xml" />
+
+	<context:annotation-config />
+	<context:component-scan
+		base-package="com.jack.service.cache" />
+
+	<!-- dubbo配置 -->
+	<dubbo:application id="cacheService_app"
+		name="cacheService_app" owner="lksoulman" organization="pdd"
+		logger="slf4j" />
+
+	<!-- dubbo注册中心配置 -->
+	<dubbo:registry id="registry" client="curator"
+		protocol="zookeeper" address="${registry.address}"
+		username="${registry.username}" password="${registry.password}"
+		default="true" />
+
+	<!-- dubbo hession协议配置 -->
+	<dubbo:protocol name="rmi" port="${protocol.port}"
+		codec="spring" payload="662914560" buffer="51200" default="true" />
+
+	<dubbo:provider timeout="30000" />
+	<dubbo:consumer timeout="30000" />
+
+	<dubbo:service
+		interface="com.jack.service.api.cache.RedisServiceApi"
+		ref="redisServiceApiImpl" loadbalance="roundrobin" version="1.0.0"
+		owner="lksoulman" />
+</beans>

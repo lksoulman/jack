@@ -1,0 +1,435 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-1">
+		<createTable tableName="task_blob_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="BLOB_DATA" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-2">
+		<createTable tableName="task_calendars">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CALENDAR_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CALENDAR" type="BLOB">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-3">
+		<createTable tableName="task_cron_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="CRON_EXPRESSION" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TIME_ZONE_ID" type="VARCHAR(80)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-4">
+		<createTable tableName="task_fired_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ENTRY_ID" type="VARCHAR(95)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INSTANCE_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="FIRED_TIME" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="SCHED_TIME" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PRIORITY" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="STATE" type="VARCHAR(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_NAME" type="VARCHAR(200)" />
+			<column name="JOB_GROUP" type="VARCHAR(200)" />
+			<column name="IS_NONCONCURRENT" type="VARCHAR(1)" />
+			<column name="REQUESTS_RECOVERY" type="VARCHAR(1)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-5">
+		<createTable tableName="task_job_details">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(250)" />
+			<column name="JOB_CLASS_NAME" type="VARCHAR(250)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_DURABLE" type="VARCHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_NONCONCURRENT" type="VARCHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="IS_UPDATE_DATA" type="VARCHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REQUESTS_RECOVERY" type="VARCHAR(1)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_DATA" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-6">
+		<createTable tableName="task_locks">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LOCK_NAME" type="VARCHAR(40)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-7">
+		<createTable tableName="task_paused_trigger_grps">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-8">
+		<createTable tableName="task_quartz_log">
+			<column autoIncrement="true" name="ID" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column defaultValueComputed="CURRENT_TIMESTAMP"
+				name="UPDATETIME" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-9">
+		<createTable tableName="task_scheduler_state">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="INSTANCE_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="LAST_CHECKIN_TIME" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CHECKIN_INTERVAL" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-10">
+		<createTable tableName="task_simple_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="REPEAT_COUNT" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="REPEAT_INTERVAL" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="TIMES_TRIGGERED" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-11">
+		<createTable tableName="task_simprop_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="STR_PROP_1" type="VARCHAR(512)" />
+			<column name="STR_PROP_2" type="VARCHAR(512)" />
+			<column name="STR_PROP_3" type="VARCHAR(512)" />
+			<column name="INT_PROP_1" type="INT" />
+			<column name="INT_PROP_2" type="INT" />
+			<column name="LONG_PROP_1" type="BIGINT" />
+			<column name="LONG_PROP_2" type="BIGINT" />
+			<column name="DEC_PROP_1" type="DECIMAL(13, 4)" />
+			<column name="DEC_PROP_2" type="DECIMAL(13, 4)" />
+			<column name="BOOL_PROP_1" type="VARCHAR(1)" />
+			<column name="BOOL_PROP_2" type="VARCHAR(1)" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-12">
+		<createTable tableName="task_triggers">
+			<column name="SCHED_NAME" type="VARCHAR(120)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_NAME" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="JOB_GROUP" type="VARCHAR(200)">
+				<constraints nullable="false" />
+			</column>
+			<column name="DESCRIPTION" type="VARCHAR(250)" />
+			<column name="NEXT_FIRE_TIME" type="BIGINT" />
+			<column name="PREV_FIRE_TIME" type="BIGINT" />
+			<column name="PRIORITY" type="INT" />
+			<column name="TRIGGER_STATE" type="VARCHAR(16)">
+				<constraints nullable="false" />
+			</column>
+			<column name="TRIGGER_TYPE" type="VARCHAR(8)">
+				<constraints nullable="false" />
+			</column>
+			<column name="START_TIME" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="END_TIME" type="BIGINT" />
+			<column name="CALENDAR_NAME" type="VARCHAR(200)" />
+			<column name="MISFIRE_INSTR" type="SMALLINT" />
+			<column name="JOB_DATA" type="BLOB" />
+		</createTable>
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-13">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_blob_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-14">
+		<addPrimaryKey columnNames="SCHED_NAME, CALENDAR_NAME"
+			constraintName="PRIMARY" tableName="task_calendars" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-15">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_cron_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-16">
+		<addPrimaryKey columnNames="SCHED_NAME, ENTRY_ID"
+			constraintName="PRIMARY" tableName="task_fired_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-17">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, JOB_NAME, JOB_GROUP"
+			constraintName="PRIMARY" tableName="task_job_details" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-18">
+		<addPrimaryKey columnNames="SCHED_NAME, LOCK_NAME"
+			constraintName="PRIMARY" tableName="task_locks" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-19">
+		<addPrimaryKey columnNames="SCHED_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_paused_trigger_grps" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-20">
+		<addPrimaryKey columnNames="SCHED_NAME, INSTANCE_NAME"
+			constraintName="PRIMARY" tableName="task_scheduler_state" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-21">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_simple_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-22">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_simprop_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-23">
+		<addPrimaryKey
+			columnNames="SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP"
+			constraintName="PRIMARY" tableName="task_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-24">
+		<addForeignKeyConstraint
+			baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			baseTableName="task_blob_triggers"
+			constraintName="TASK_BLOB_TRIGGERS_ibfk_1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			referencedTableName="task_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-25">
+		<addForeignKeyConstraint
+			baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			baseTableName="task_cron_triggers"
+			constraintName="TASK_CRON_TRIGGERS_ibfk_1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			referencedTableName="task_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-26">
+		<addForeignKeyConstraint
+			baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			baseTableName="task_simple_triggers"
+			constraintName="TASK_SIMPLE_TRIGGERS_ibfk_1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			referencedTableName="task_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-27">
+		<addForeignKeyConstraint
+			baseColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			baseTableName="task_simprop_triggers"
+			constraintName="TASK_SIMPROP_TRIGGERS_ibfk_1" deferrable="false"
+			initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+			referencedColumnNames="SCHED_NAME,TRIGGER_NAME,TRIGGER_GROUP"
+			referencedTableName="task_triggers" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-28">
+		<addForeignKeyConstraint
+			baseColumnNames="SCHED_NAME,JOB_NAME,JOB_GROUP"
+			baseTableName="task_triggers" constraintName="task_TRIGGERS_ibfk_1"
+			deferrable="false" initiallyDeferred="false" onDelete="NO ACTION"
+			onUpdate="NO ACTION"
+			referencedColumnNames="SCHED_NAME,JOB_NAME,JOB_GROUP"
+			referencedTableName="task_job_details" />
+	</changeSet>
+	<changeSet author="lksoulman (generated)"
+		id="1495790094478-29">
+		<createTable tableName="userinfo">
+			<column name="ID" type="BIGINT" remarks="用户唯一ID">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="NAME" type="VARCHAR(30)" remarks="用户名称">
+				<constraints nullable="false" />
+			</column>
+			<column name="PASSWORD" type="VARCHAR(30)" remarks="用户密码">
+				<constraints nullable="false" />
+			</column>
+			<column name="PHONE" type="VARCHAR(20)" remarks="用户手机号" />
+			<column name="MAIL" type="VARCHAR(255)" remarks="用户邮箱" />
+			<column name="UPDATETIME" type="datetime(6)" remarks="修改时间" />
+		</createTable>
+	</changeSet>
+	<changeSet author="wanghui (generated)" id="1495790094478-30">
+		<createTable tableName="downloadtree">
+			<column name="ID" remarks="主键ID" type="INT">
+				<constraints nullable="false" />
+			</column>
+			<column name="PID" remarks="父节点ID" type="INT" />
+			<column name="NAME" remarks="节点名称" type="VARCHAR(100)" />
+			<column name="ORDERNO" remarks="节点的位置" type="INT" />
+			<column name="TYPE" remarks="添加节点的类型，0=分组，1=已启用的站点，2=未启用的站点"
+				type="TINYINT(3)" />
+			<column name="UPDATETIME" remarks="更新时间" type="datetime(6)" />
+			<column name="UPDATEUSER" remarks="更新人员" type="INT" />
+		</createTable>
+	</changeSet>
+	<changeSet author="wanghui (generated)" id="1495790094478-7">
+		<createTable tableName="downloadinfo">
+			<column autoIncrement="true" name="ID" remarks="站点的主键"
+				type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="PARENTID" remarks="多级网页的父ID" type="INT" />
+			<column name="HAS_CHILD" remarks="是否包含子级页面" type="TINYINT(3)">
+				<constraints nullable="false" />
+			</column>
+			<column name="WEBTYPE" remarks="网页类型：JSON=0，HTML=1" type="INT" />
+			<column name="COOKIE" remarks="cookie值" type="VARCHAR(300)" />
+			<column name="URL" remarks="链接地址" type="TEXT" />
+			<column name="PARAMS" remarks="网址请求的参数" type="TEXT" />
+			<column name="HEADERS" remarks="请求headers参数" type="TEXT" />
+			<column name="PAGENAME" remarks="分页参数名称" type="VARCHAR(50)" />
+			<column name="REQUESTTYPE" remarks="请求类型：GET=1，POST=2"
+				type="INT" />
+			<column name="PROXY" remarks="代理" type="INT" />
+			<column name="QUARTZ" remarks="是否启用" type="VARCHAR(255)" />
+			<column name="MTCC" remarks="媒体出处" type="INT" />
+			<column name="SYNCTABLE" remarks="同步到表" type="VARCHAR(50)" />
+			<column name="WEBPAGERULE"
+				remarks="网页抓取配置规则(xml)抓取类型：Nothing=0,Table=1,Link=2" type="TEXT" />
+			<column name="UPDATE_USER" remarks="修改站点规则人员" type="INT" />
+			<column defaultValueComputed="CURRENT_TIMESTAMP"
+				name="UPDATE_TIME" remarks="修改站点时间" type="TIMESTAMP" />
+			<column name="CREATER" remarks="站点规则创建人员" type="INT" />
+			<column name="CREATETIME" remarks="站点规则创建时间"
+				type="datetime(6)" />
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.gildata.com/schema/gildata"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        targetNamespace="http://www.gildata.com/schema/gildata"
+        elementFormDefault="qualified">
+    <xsd:import namespace="http://www.springframework.org/schema/beans"/>
+    
+   <xsd:element name="sqlconfig" type="consumerType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ Call the service config ]]></xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:element name="sqldf" type="sqldfType">
+		<xsd:annotation>
+			<xsd:documentation><![CDATA[ test ]]></xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	
+	<xsd:complexType name="sqldfType" block="#all">
+		<xsd:complexContent>
+			<xsd:extension base="sqldftType">
+				<xsd:sequence>
+					<xsd:element name="sql" type="xsd:string"></xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+		
+	</xsd:complexType>
+	
+	<xsd:complexType name="sqldftType">
+		<xsd:attribute name="sqlname" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The parameter value. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="desc" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The parameter value. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="type" type="xsd:string">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The parameter value. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	
+	<xsd:complexType name="consumerType">
+		<xsd:complexContent>
+			<xsd:extension base="abstractServiceType">
+				<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+					<xsd:element ref="sqldf" minOccurs="0" maxOccurs="unbounded" />
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="abstractServiceType">
+		<xsd:attribute name="id" type="xsd:ID" use="required">
+			<xsd:annotation>
+				<xsd:documentation><![CDATA[ The unique identifier for a bean. ]]></xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+</xsd:schema>

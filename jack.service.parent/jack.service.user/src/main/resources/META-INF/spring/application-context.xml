@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<bean
+		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:profiles/application.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<import resource="classpath:spring/datasource.xml" />
+	<import resource="classpath:sql/sqlconfig.xml" />
+
+	<context:annotation-config />
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:component-scan
+		base-package="com.jack.service.user" />
+
+	<!-- mysql配置库 -->
+	<bean id="baseJdbcTemplate"
+		class="com.jack.service.common.jdbc.BaseJdbcTemplate" abstract="false"
+		lazy-init="false">
+		<constructor-arg ref="jackDataSource" />
+	</bean>
+
+	<!-- dubbo配置 -->
+	<dubbo:application id="userService_app"
+		name="userService_app" owner="lksoulman" organization="pdd"
+		logger="slf4j" />
+
+	<!-- dubbo注册中心配置 -->
+	<dubbo:registry id="registry" client="curator"
+		protocol="zookeeper" address="${registry.address}"
+		username="${registry.username}" password="${registry.password}"
+		default="true" />
+
+	<!-- dubbo hession协议配置 -->
+	<dubbo:protocol name="rmi" port="${protocol.port}"
+		codec="spring" payload="662914560" buffer="51200" default="true" />
+
+	<dubbo:provider timeout="30000" />
+	<dubbo:consumer timeout="30000" />
+
+	<dubbo:service
+		interface="com.jack.service.api.user.UserServiceApi"
+		ref="userServiceApiImpl" loadbalance="roundrobin" version="1.0.0"
+		owner="lksoulman" />
+
+	<dubbo:reference
+		interface="com.jack.service.api.core.CoreServiceApi"
+		id="coreServiceApi" version="1.0.0" check="false" />
+</beans>

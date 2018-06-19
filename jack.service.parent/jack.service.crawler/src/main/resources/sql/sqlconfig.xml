@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gildata="http://www.gildata.com/schema/gildata"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.gildata.com/schema/gildata
+        http://www.gildata.com/schema/gildata.xsd">
+    <import resource="classpath:sql/sql-userinfo.xml"/>
+</beans>
+
