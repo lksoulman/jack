@@ -7,14 +7,27 @@
         http://www.gildata.com/schema/gildata
         http://www.gildata.com/schema/gildata.xsd">
 	<gildata:sqlconfig id="sql_crawler">
-		<gildata:sqldf sqlname="register" desc="根据密码获取用户">
+		<gildata:sqldf sqlname="getCrawlerSiteInfoById"
+			desc="获取页面配置信息">
 			<gildata:sql>
-				<![CDATA[INSERT INTO userinfo ( ID, NAME, PASSWORD, PHONE, MAIL, UPDATETIME ) VALUES( :ID, :NAME, :PASSWORD, :PHONE, :MAIL, NOW( ) )]]>
-			</gildata:sql>
-		</gildata:sqldf>
-		<gildata:sqldf sqlname="getPageInfoById" desc="获取页面配置信息">
-			<gildata:sql>
-				<![CDATA[SELECT ID, NAME, PASSWORD, PHONE, MAIL FROM userinfo WHERE NAME=? LIMIT 1]]>
+				<![CDATA[
+						SELECT
+							ID,
+							COOKIE,
+							URL,
+							PARAMS,
+							HEADERS,
+							PAGE_NAME,
+							WEB_TYPE,
+							REQUEST_TYPE,
+							PROXY,
+							MEDIA_ID,
+							GRAB_RULE 
+						FROM
+							crawlersiteinfo
+						WHERE 
+							ID = ?
+				]]>
 			</gildata:sql>
 		</gildata:sqldf>
 	</gildata:sqlconfig>

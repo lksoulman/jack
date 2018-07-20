@@ -30,4 +30,8 @@ public class CacheException extends RuntimeException implements Serializable {
 		super(cause);
 		this.cause = cause;
 	}
+	
+	public Throwable getCause() {
+		return cause;
+	}
 }

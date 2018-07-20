@@ -40,4 +40,16 @@ public class FastFileException extends RuntimeException implements Serializable 
 		super(message);
 		this.cause = cause;
 	}
+	
+	/**
+	 * 
+	 * @Description: 
+	 * @return 
+	 * @return Throwable
+	 * @author lksoulman
+	 * @date 2018-06-27 09:44:10
+	 */
+	public Throwable getThrowable() {
+		return cause; 
+	}
 }

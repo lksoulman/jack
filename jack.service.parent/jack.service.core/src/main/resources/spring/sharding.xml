@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:sharding="http://shardingsphere.io/schema/shardingsphere/sharding"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/tx
+        				http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+						http://shardingsphere.io/schema/shardingsphere/sharding 
+                        http://shardingsphere.io/schema/shardingsphere/sharding/sharding.xsd">
+
+	<import resource="classpath:spring/datasource.xml" />
+
+	<!-- 数据库分库策略 -->
+	<sharding:standard-strategy
+		id="databaseStrategy" sharding-column="none"
+		precise-algorithm-ref="preciseDatabaseShardingAlgorithm" />
+
+	<!-- 资源中心分表 -->
+	<sharding:standard-strategy
+		id="resourceTableStrategy" sharding-column="SHARDTIME"
+		precise-algorithm-ref="preciseYearTableShardingAlgorithm"
+		range-algorithm-ref="rangeYearTableShardingAlgorithm" />
+
+	<sharding:data-source id="shardingDataSource">
+		<sharding:sharding-rule
+			data-source-names="jackDataSource"
+			default-data-source-name="jackDataSource">
+			<sharding:table-rules>
+				<sharding:table-rule logic-table="resource_file"
+					actual-data-nodes="jackDataSource.resource_file_2018"
+					database-strategy-ref="databaseStrategy"
+					table-strategy-ref="resourceTableStrategy" />
+			</sharding:table-rules>
+			<sharding:binding-table-rules>
+				<sharding:binding-table-rule
+					logic-tables="resource_file" />
+			</sharding:binding-table-rules>
+		</sharding:sharding-rule>
+		<sharding:props>
+			<prop key="sql.show">false</prop>
+		</sharding:props>
+	</sharding:data-source>
+
+	<bean id="shardingTemplate"
+		class="com.jack.service.common.jdbc.BaseJdbcTemplate" abstract="false"
+		lazy-init="false">
+		<constructor-arg ref="shardingDataSource" />
+	</bean>
+
+	<bean id="shardTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="shardingDataSource" />
+	</bean>
+
+	<tx:annotation-driven
+		transaction-manager="shardTransactionManager" />
+</beans>

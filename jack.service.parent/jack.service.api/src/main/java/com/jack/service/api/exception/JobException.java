@@ -30,4 +30,16 @@ public class JobException extends RuntimeException implements Serializable {
 		super(cause);
 		this.cause = cause;
 	}
+	
+	/**
+	 * 
+	 * @Description: 
+	 * @return 
+	 * @return Throwable
+	 * @author lksoulman
+	 * @date 2018-06-27 09:43:14
+	 */
+	public Throwable getThrowable() {
+		return cause; 
+	}
 }

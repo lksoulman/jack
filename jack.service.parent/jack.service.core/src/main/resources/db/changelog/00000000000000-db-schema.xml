@@ -383,11 +383,11 @@
 			</column>
 			<column name="PHONE" type="VARCHAR(20)" remarks="用户手机号" />
 			<column name="MAIL" type="VARCHAR(255)" remarks="用户邮箱" />
-			<column name="UPDATETIME" type="datetime(6)" remarks="修改时间" />
+			<column name="UPDATE_TIME" type="datetime(6)" remarks="修改时间" />
 		</createTable>
 	</changeSet>
-	<changeSet author="wanghui (generated)" id="1495790094478-30">
-		<createTable tableName="downloadtree">
+	<changeSet author="lksoulman (generated)" id="1495790094478-30">
+		<createTable tableName="crawlersitetree">
 			<column name="ID" remarks="主键ID" type="INT">
 				<constraints nullable="false" />
 			</column>
@@ -396,40 +396,77 @@
 			<column name="ORDERNO" remarks="节点的位置" type="INT" />
 			<column name="TYPE" remarks="添加节点的类型，0=分组，1=已启用的站点，2=未启用的站点"
 				type="TINYINT(3)" />
-			<column name="UPDATETIME" remarks="更新时间" type="datetime(6)" />
-			<column name="UPDATEUSER" remarks="更新人员" type="INT" />
+			<column name="UPDATE_USER" remarks="更新人员" type="INT" />
+			<column name="UPDATE_TIME" remarks="更新时间" type="datetime(6)" />
 		</createTable>
 	</changeSet>
-	<changeSet author="wanghui (generated)" id="1495790094478-7">
-		<createTable tableName="downloadinfo">
+	<changeSet author="lksoulman (generated)" id="1495790094478-31">
+		<createTable tableName="crawlersiteinfo">
 			<column autoIncrement="true" name="ID" remarks="站点的主键"
 				type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="PARENTID" remarks="多级网页的父ID" type="INT" />
+			<column name="PID" remarks="多级网页的父ID" type="INT" />
 			<column name="HAS_CHILD" remarks="是否包含子级页面" type="TINYINT(3)">
 				<constraints nullable="false" />
 			</column>
-			<column name="WEBTYPE" remarks="网页类型：JSON=0，HTML=1" type="INT" />
 			<column name="COOKIE" remarks="cookie值" type="VARCHAR(300)" />
 			<column name="URL" remarks="链接地址" type="TEXT" />
 			<column name="PARAMS" remarks="网址请求的参数" type="TEXT" />
 			<column name="HEADERS" remarks="请求headers参数" type="TEXT" />
-			<column name="PAGENAME" remarks="分页参数名称" type="VARCHAR(50)" />
-			<column name="REQUESTTYPE" remarks="请求类型：GET=1，POST=2"
+			<column name="PAGE_NAME" remarks="分页参数名称" type="VARCHAR(50)" />
+			<column name="WEB_TYPE" remarks="网页类型：JSON=0，HTML=1" type="INT" />
+			<column name="REQUEST_TYPE" remarks="请求类型：GET=1，POST=2"
 				type="INT" />
 			<column name="PROXY" remarks="代理" type="INT" />
-			<column name="QUARTZ" remarks="是否启用" type="VARCHAR(255)" />
-			<column name="MTCC" remarks="媒体出处" type="INT" />
+			<column name="CRON" remarks="Cron表达式" type="VARCHAR(255)" />	
+			<column name="MEDIA_ID" remarks="媒体出处" type="INT" />
 			<column name="SYNCTABLE" remarks="同步到表" type="VARCHAR(50)" />
-			<column name="WEBPAGERULE"
+			<column name="GRAB_RULE"
 				remarks="网页抓取配置规则(xml)抓取类型：Nothing=0,Table=1,Link=2" type="TEXT" />
 			<column name="UPDATE_USER" remarks="修改站点规则人员" type="INT" />
 			<column defaultValueComputed="CURRENT_TIMESTAMP"
 				name="UPDATE_TIME" remarks="修改站点时间" type="TIMESTAMP" />
-			<column name="CREATER" remarks="站点规则创建人员" type="INT" />
-			<column name="CREATETIME" remarks="站点规则创建时间"
-				type="datetime(6)" />
 		</createTable>
 	</changeSet>
+	<changeSet author="lksoulman (generated)" id="1495790094478-32">
+        <createTable tableName="resource_file_2018">
+            <column autoIncrement="true" name="ID" type="INT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="WEBSITEID" remarks="网页站点ID" type="INT"/>
+            <column name="RELEASEDATE" remarks="公告日期" type="datetime(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INNERCODE" remarks="内部编码" type="TEXT"/>
+            <column name="TITLE" type="VARCHAR(512)"/>
+            <column name="TABLENAME" remarks="同步的表名" type="VARCHAR(30)"/>
+            <column defaultValueNumeric="0" name="MEDIASOURCE" remarks="媒体出处" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="FILESIZE" remarks="文件大小" type="INT"/>
+            <column name="MD5" remarks="文件的MD5码" type="VARCHAR(40)"/>
+            <column name="EXTENSION" remarks="文件的扩展名(后缀)" type="VARCHAR(8)"/>
+            <column name="GROUP_NAME" remarks="文件分组名称" type="VARCHAR(50)"/>
+            <column name="STORE_PATH" remarks="文件的存储路径" type="VARCHAR(255)"/>
+            <column name="RESOURCEURL" remarks="文件的资源地址" type="VARCHAR(255)"/>
+            <column name="WEBSITEURL" remarks="文件所在站点的网址" type="MEDIUMTEXT"/>
+            <column name="SECONDTITLE" remarks="二级标题" type="VARCHAR(255)"/>
+            <column name="NUMBER" remarks="二级页面序号" type="TINYINT(3)"/>
+            <column defaultValueNumeric="0" name="CONVERTSTATUS" remarks="转换状态" type="TINYINT(3)"/>
+            <column defaultValue="" name="TAG" remarks="标签" type="VARCHAR(255)"/>
+            <column name="SYNCTIME" remarks="同步时间" type="date"/>
+            <column defaultValueNumeric="0" name="SYNCSTATUS" remarks="同步状态" type="TINYINT(3)"/>
+            <column name="DOWNLOAD_STATUS" remarks="下载状态" type="TINYINT(3)"/>
+            <column name="ADDTIME" remarks="新增日期" type="date"/>
+            <column name="UPDTIME" remarks="更新日期" type="datetime(6)"/>
+            <column name="ADDUSER" remarks="新增者" type="INT"/>
+            <column name="TYPE" remarks="类型:1=http下载,2=ftp和共享目录下载,3=人工上传,4=研究报告回写" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueNumeric="0" name="DELETE_FLAG" remarks="删除标志 0=表示可查询到的记录，1=状态删除" type="INT"/>
+            <column name="UPDUSER" remarks="修改人员" type="INT"/>
+            <column defaultValueNumeric="0" name="BACKSTATUS" remarks="回退信息" type="INT"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
