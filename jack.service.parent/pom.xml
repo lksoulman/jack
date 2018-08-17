@@ -208,5 +208,6 @@
 		<module>jack.service.crawler</module>
 		<module>jack.service.web</module>
 		<module>jack.service.file</module>
+		<module>jack.service.mq</module>
 	</modules>
 </project>
